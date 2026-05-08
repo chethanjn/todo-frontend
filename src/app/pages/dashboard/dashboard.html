@@ -1,0 +1,96 @@
+<mat-toolbar color="primary" class="toolbar">
+  <span>Todo Dashboard</span>
+  <span class="spacer"></span>
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+
+<div class="page">
+  <mat-card class="filter-card">
+    <div class="filter-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="search" placeholder="Task title, category, description" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select [(ngModel)]="selectedCategory">
+          <mat-option value="">All</mat-option>
+          @for (category of categories; track category.id) {
+            <mat-option [value]="category.name">{{category.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Created from</mat-label>
+        <input matInput type="date" [(ngModel)]="createdFrom" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Created to</mat-label>
+        <input matInput type="date" [(ngModel)]="createdTo" />
+      </mat-form-field>
+    </div>
+
+    <div class="actions-row">
+      <button mat-stroked-button (click)="clearFilters()">Clear</button>
+      <button mat-raised-button color="primary" (click)="applyFilters()">Apply</button>
+      <span class="spacer"></span>
+      <button mat-raised-button color="accent" (click)="openCreateTaskPopUp()">
+        <mat-icon>add</mat-icon>
+        New Task
+      </button>
+    </div>
+  </mat-card>
+
+  @if(!loading){
+    <div class="cards-grid">
+      @for (task of tasks; track task.id){
+        <mat-card class="task-card">
+          <div class="task-header">
+            <div>
+              <h3 class="task-title">{{ task.title }}</h3>
+              <div class="task-meta">
+                <span class="category">{{ task.categoryName }}</span>
+                <span class="status" [class.done]="task.completed">
+              {{ task.completed ? 'Done' : 'Open' }}
+            </span>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button mat-icon-button color="primary" (click)="openEditTaskPopUp(task)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteTask(task)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="task-description">
+            <strong>Description:</strong>
+            <p>{{ task.description || 'No description provided' }}</p>
+          </div>
+
+          <div class="task-footer">
+            <span>Created: {{ task.createdAt | date:'mediumDate' }}</span>
+          </div>
+        </mat-card>
+      }
+    </div>
+  }
+
+  @if(!loading && tasks.length === 0){
+    <mat-card class="empty-card">
+      No tasks found.
+    </mat-card>
+  }
+
+  @if(loading){
+    <div class="loading-wrap">
+      <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+    </div>
+  }
+</div>
