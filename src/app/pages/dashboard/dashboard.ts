@@ -9,13 +9,13 @@ import {CategoryServices} from '../../core/services/category.services';
 import {AuthService} from '../../core/services/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
-import {DatePipe} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
 import {CreateEditTaskComponent} from './popup/create-edit-task-component/create-edit-task-component';
 import {ConfirmPopup} from '../../shared/confirm-popup/confirm-popup';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MaterialModule, ReactiveFormsModule, FormsModule, DatePipe],
+  imports: [MaterialModule, ReactiveFormsModule, FormsModule, DatePipe, NgClass],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })

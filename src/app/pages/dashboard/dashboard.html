@@ -47,7 +47,7 @@
   @if(!loading){
     <div class="cards-grid">
       @for (task of tasks; track task.id){
-        <mat-card class="task-card">
+        <mat-card class="task-card" [ngClass]="task.categoryName === 'sports' ? 'redColor' : 'greenColor' ">
           <div class="task-header">
             <div>
               <h3 class="task-title">{{ task.title }}</h3>

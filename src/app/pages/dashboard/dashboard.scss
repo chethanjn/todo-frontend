@@ -122,6 +122,12 @@
   min-height: 180px;
 }
 
+.redColor{
+  background: #bc0707;
+}
+.greenColor{
+  background: #2b8806;
+}
 @media (max-width: 900px) {
   .filter-grid {
     grid-template-columns: 1fr;
